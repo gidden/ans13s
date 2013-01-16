@@ -1,4 +1,4 @@
-manuscript = abstract
+manuscript = summary
 references = refs
 latexopt   = -halt-on-error -file-line-error
 
