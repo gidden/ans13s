@@ -12,9 +12,8 @@
 \usepackage{authblk}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\title{Developing Standardized, Open Benchmarks and Scenario 
-Definition Specifications for Simulation of the Once-Through Fuel 
-Cycle}
+\title{Developing Standardized, Open Benchmarks and Language Specification for 
+Simulation of Dynamic Fuel Cycles}
 \author[*]{Matthew Gidden}
 \author[$\dag$]{Anthony Scopatz}
 \author[*]{Paul Wilson}
@@ -30,15 +29,14 @@ of Chicago, Chicago, IL, 60637}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Introduction}
-Nuclear fuel cycle simulation is a field and practice that has 
-involved a variety of players in the nuclear fuel services arena, most
-predominately governments and international organizations. 
-Additionally, multiple solution frameworks have been proposed and 
-implemented, including systems dynamics, agent-based modeling, object 
-oriented programming, and hybrids thereof. Accordingly, there is 
-strong motivation for consistency of testing basic functionality as a
-means of verification and validation of the variety of fuel cycle
-simulation applications.
+Nuclear fuel cycle simulation is a field and practice that has involved a
+variety of players in the nuclear fuel services arena, most predominately
+governments and international organizations.  Additionally, multiple solution
+frameworks have been proposed and implemented, including systems dynamics,
+agent-based modeling, object oriented programming, and hybrids
+thereof. Accordingly, there is strong motivation for consistency of testing
+basic functionality as a means of verification and validation of the variety of
+fuel cycle simulation applications.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Current Benchmark Landscape}
@@ -56,82 +54,75 @@ different conversion ratios) \cite{guerin_benchmark_2009}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Motivation}
-Common amongst all of the above-mentioned benchmarks is a shallow
-treatment of the once-through fuel cycle. Although conceptually 
-rather simple, the community will benefit from a thorough suite of 
-benchmarks that cover both the facility-level and simulation-wide 
-metrics. Additionally, it is the basis from which any other fuel 
-cycles will be expanded.  Thus such a suite of benchmarks should be 
-satisfied by any simulator looking to analyze more advanced fuel 
+Common amongst all of the above-mentioned benchmarks is a shallow treatment of
+the once-through fuel cycle. Although conceptually rather simple, the community
+will benefit from a thorough suite of benchmarks that cover both the
+facility-level and simulation-wide metrics. Additionally, it is the basis from
+which any other fuel cycles will be expanded.  Thus such a suite of benchmarks
+should be satisfied by any simulator looking to analyze more advanced fuel
 cycles.
 
-Another mutual thread amongst previous benchmarking exercises is a
-lack of a common language to describe scenario specifications. Such an
-advance would greatly benefit the fuel cycle simulation community by
-allowing for a common, well-defined specification of a set of scenario
-parameters to be discussed. Moreover, a computer-readable scenario
-definition implementation would assist in the automation of benchmark
-analyses. This is not an uncommon problem in the computational nuclear
-community, and we look to the nuclear data community for
-inspiration. There has been a push to update the Evaluated Nuclear
-Data Format (ENDF) utilizing a more general language termed
-Generalized Nuclear Data (GND) \cite{mattoon_generalized_2012}. This
-language is a \emph{specification} rather than an
-\emph{implementation}, allowing others to tailor implementation
-details (e.g. via XML, HDF5, etc.) to their needs. We propose using a
-similar formalism to define scenarios that is independent of the
+Another mutual thread amongst previous benchmarking exercises is a lack of a
+common language to describe scenario specifications. Such an advance would
+greatly benefit the fuel cycle simulation community by allowing for a common,
+well-defined specification of a set of scenario parameters to be
+discussed. Moreover, a computer-readable scenario definition implementation
+would assist in the automation of benchmark analyses. This is not an uncommon
+problem in the computational nuclear community, and we look to the nuclear data
+community for inspiration. There has been a push to update the Evaluated Nuclear
+Data Format (ENDF) utilizing a more general language termed Generalized Nuclear
+Data (GND) \cite{mattoon_generalized_2012}. This language is a
+\emph{specification} rather than an \emph{implementation}, allowing others to
+tailor implementation details (e.g. via XML, HDF5, etc.) to their needs. We
+propose using a similar formalism to define scenarios that is independent of the
 analysis mechanism (e.g. system dynamics, agent-based modeling).
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Benchmark Classification}
-The types of benchmarks that are applicable to fuel cycle simulation
-come in two main flavors: facility boundary benchmarks (e.g. the
-nuclide composition of used fuel exiting a reactor given an input vector
-and reactor facility parameters) and simulation-wide benchmarks (e.g. the
-amount of spent fuel exiting reactors for a specified demand curve).
-Fully defining benchmarks requires agreed-upon output metrics.
-Previous work notes that natural uranium consumption, SWU 
-requirements, material flows between facility boundaries, and the 
-isotopics of those flows as a function of time are chief metrics by
-which to measure these types of benchmarks 
-\cite{boucher_specification_2008}. This work will analyze and 
-categorize the types of benchmarks applicable to the once-through 
-fuel cycle and the metrics associated with each in as general a way
-as possible in order to incorporate the different solution mechanisms
-taken by the fuel cycle simulation community.
+The types of benchmarks that are applicable to fuel cycle simulation come in two
+main flavors: facility boundary benchmarks (e.g. the nuclide composition of used
+fuel exiting a reactor given an input vector and reactor facility parameters)
+and simulation-wide benchmarks (e.g. the amount of spent fuel exiting reactors
+for a specified demand curve).  Fully defining benchmarks requires agreed-upon
+output metrics.  Previous work notes that natural uranium consumption, SWU
+requirements, material flows between facility boundaries, and the isotopics of
+those flows as a function of time are chief metrics by which to measure these
+types of benchmarks \cite{boucher_specification_2008}. This work will analyze
+and categorize the types of benchmarks applicable to the once-through fuel cycle
+and the metrics associated with each in as general a way as possible in order to
+incorporate the different solution mechanisms taken by the fuel cycle simulation
+community.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Scenario Specification Language}
-Any benchmark must be defined in such a way that can be interpreted by
-different simulators. Thus, an underlying structure exists that can be
-leveraged in order to construct a common language by which different
-scenarios can be expressed. As we progress in our work to classify and
-analyze benchmarks for the once-through fuel cycle, we simultaneously
-construct a common language that define the benchmarks. Language 
-constructs include sets of parameters by which facilities can be
-defined (e.g. the power level and cycle length of a reactor) as well
-as generic containers for data series (e.g. defining a power demand 
-curve through piecewise functions or interpolated data points) much
-in the spirit of \cite{mattoon_generalized_2012}. In addition to the
-language specification, an example implementation will be provided.
+Any benchmark must be defined in such a way that can be interpreted by different
+simulators. Thus, an underlying structure exists that can be leveraged in order
+to construct a common language by which different scenarios can be expressed. As
+we progress in our work to classify and analyze benchmarks for the once-through
+fuel cycle, we simultaneously construct a common language that define the
+benchmarks. Language constructs include sets of parameters by which facilities
+can be defined (e.g. the power level and cycle length of a reactor) as well as
+generic containers for data series (e.g. defining a power demand curve through
+piecewise functions or interpolated data points) much in the spirit of
+\cite{mattoon_generalized_2012}. In addition to the language specification, an
+example implementation will be provided.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Conclusion}
-The fuel cycle simulation community has long been a dispersed group of
-actors with a common goal of verification and validation of their
-analysis tools. Providing a common suite of open benchmarks using a
-common scenario definition language will facilitate the efficient
-pursuit of such an endeavor. This work provides a first look at such
-tools and their implementation for the once-through fuel cycle. A
-natural next step is to expand these tools for advanced fuel cycles,
-perhaps first those with single MOX recycle and then more generally
-for fuel recycle via breeder/burner reactors.
+The fuel cycle simulation community has long been a dispersed group of actors
+with a common goal of verification and validation of their analysis
+tools. Providing a common suite of open benchmarks using a common scenario
+definition language will facilitate the efficient pursuit of such an
+endeavor. This work provides a first look at such tools and their implementation
+for the once-through fuel cycle. A natural next step is to expand these tools
+for advanced fuel cycles, perhaps first those with single MOX recycle and then
+more generally for fuel recycle via breeder/burner reactors.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Acknowledgments}
-This research is being performed using funding received from the DOE
-Office of Nuclear Energy's Nuclear Energy University Programs.  The
-author thanks the NEUP for its generous support.\\
+This research is being performed using funding received from the DOE Office of
+Nuclear Energy's Nuclear Energy University Programs.  The author thanks the NEUP
+for its generous support.\\ 
 \includegraphics[width=1.5in]{neup_logo_large.jpg}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
