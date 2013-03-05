@@ -10,6 +10,8 @@
 \usepackage{amsmath} % for optimization equations
 \usepackage{booktabs}
 \usepackage{authblk}
+\usepackage{moreverb} % for verbatim snippets of code
+\usepackage{fancyvrb}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \title{Developing Standardized, Open Benchmarks and a Corresponding 
@@ -41,6 +43,7 @@ performed to date with a range of fidelity of scenario specification. This work
 proposes a common language by which such specifications can be described and
 provides some simple examples of its use.
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Overview}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -127,22 +130,160 @@ studies for most metrics except in simple cases with no growth after tuning
 between simulators \cite{guerin_benchmark_2009}. This is an area that requires
 continued collaboration and is prime for future work in the benchmarking arena.
 
-%%
-% leaving off here for now
-%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Scenario Specification Language}
-Any benchmark must be defined in such a way that can be interpreted by different
-simulators. Thus, an underlying structure exists that can be leveraged in order
-to construct a common language by which different scenarios can be expressed. As
-we progress in our work to classify and analyze benchmarks for the once-through
-fuel cycle, we simultaneously construct a common language that define the
-benchmarks. Language constructs include sets of parameters by which facilities
-can be defined (e.g. the power level and cycle length of a reactor) as well as
-generic containers for data series (e.g. defining a power demand curve through
-piecewise functions or interpolated data points) much in the spirit of
-\cite{mattoon_generalized_2012}. In addition to the language specification, an
-example implementation will be provided.
+\section{Contributed Work}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Scenario Specification Language}
+Any benchmark must be defined in such a way that it can be interpreted by
+different simulators. There is, therefore, an underlying structure exists that
+can be leveraged in order to construct a common language by which different
+scenarios can be expressed. Such a language needs to minimally define simulation
+input as to cover all required specifics. What is meant by ``minimally
+defining'' a simulation is informed by the output metrics used in the
+benchmark. For example, in prior benchmarking exercises, the number of reactors
+of a given type in service is an agreed upon metric. Accordingly, information is
+required regarding when reactors enter the simulation, i.e. a demand curve, and
+when reactors leave the simulation, i.e. a lifetime. For this metric, licensing
+and construction times are extraneous information vis-a-vis simulation mechanics
+-- that is to say: if a simulator uses them, they inform a pre-planning process
+to meet the required demand curve; at the end of the day, the demand curve is
+met at the requisite time.
+
+Determining the minimal set of information to describe these benchmark scenarios
+is a simulation-community-level discussion topic. The authors have proposed such
+a set of information to describe the once-through fuel cycle as a
+proof-of-principle, and look to future work and the community to continue to
+develop the language for advanced cycle cases. 
+
+In order to describe scenario definitions, there are largely three main
+categories of parameters: materials used in the simulation, facilities used in
+the simulation, and over-arching fuel-cycle scenario information (such as power
+curves). We specify these parameters using language constructs such as
+dictionaries, lists, and attributes. We include the latter construct in order to
+encapsulate additional information about units and information that may be
+specific to a subset of simulators but its not necessarily housed in the minimum
+set of required parameters. Accordingly, we focus on parameters housed the the
+two former constructs in our example. An overview of the proposed specification
+language and implementation examples in JavaScript Object Notation
+(JSON)\cite{_json_2001} follows. All examples are for taken from for the NEA 1a
+benchmark\cite{boucher_specification_2008}.
+
+\subsubsection{Materials}
+Materials in a fuel cycle simulation generally come in two flavors: specified
+recipes, which are normally defined as input for reactors, and the resulting
+output which is a function of the input and applied burnup. We denote the two
+flavors as being recipes or not. To begin, all material types are specified by a
+given name. At the current time, we apply a rigid definition of constraints on
+recipes, i.e., there are specified concentration values for each isotope in the
+recipe, and a density is provided. Because the output is a result of a physics
+calculation which may be implemented with varying fidelity, a less rigid
+approach is used for non-recipes. The specification does not explicitly name all
+isotopes in the output fuel; rather, it defines actual constraints on certain
+isotopes that are physically provable. Finally, we provide a parent field which
+takes as an argument another material. This is a short-hand way of denoting
+trees of materials, i.e., multiple materials with mutual constraints. An example
+is provided in Figure~\ref{fig:material}.
+
+\begin{figure}[h!]
+\begin{Verbatim}[frame=single]
+"materials": {
+  "nea_leu": {
+    "recipe": true,
+    "attributes" : {
+    "concentrations": ["float","atom"],
+    "density": ["float","g/cc"]
+   },
+   "constraints": [        
+     ["U235", 0.0495],
+     ["U238", 0.9505],
+     ["O16", 2.0],
+     ["density", 10.2]
+   ], 
+   "parents": []
+  },
+  "nea_spent_pwr_uox": {
+    "recipe": false,
+    "attributes" : {
+    "concentrations": ["float","atom"]
+    }
+    "constraints": [
+      id == 92235 && x < 0.0495",
+      "id == 92238 && x < 0.9505"
+    ], 
+    "parents": []
+  }
+}
+\end{Verbatim}
+\caption{NEA1a Materials Implemented in JSON}
+\label{fig:material}
+\end{figure}
+
+\subsubsection{Facilities}
+Facilities in the specification language have many of the same constructs as
+materials. Each facility type has a unique name, an attribute list which
+declares the units for parameters, and a constraint list which declares the
+values for parameters. Facilities must also specify the types of input and
+output materials with which they deal. For each type of facility, e.g. reactors,
+separations facilities, etc., a specification is defined. An example for the
+reactor in the NEA 1a benchmark is provided in Figure~\ref{fig:facility}.
+
+\begin{figure}[h!]
+\begin{Verbatim}[frame=single]
+"facilities": {
+  "lwr_reactor": {
+    "type":"reactor",
+    "attributes": {
+      "thermal_power": ["float", "GWt"],
+      "efficiency": ["float", "percent"],
+      "burnup": ["float", "GWd/tHM"],
+      "storage_time": ["int", "year"],
+      "cooling_time": ["int", "year"],
+      "cycle_length": ["int", "month"],
+      "core_loading": ["float", "tHM"],
+      "batch_number": "int",
+      "lifetime": ["int", "year"]
+    },
+    "constraints": [
+      ["thermal_power", 4.25],
+      ["efficiency", 34.1],
+      ["burnup", 60],
+      ["storage_time", 2],
+      ["cooling_time", 5],
+      ["cycle_length", 12],
+      ["core_loading", 78.7],
+      ["nbatches", 3],
+      ["lifetime", 60]
+    ],
+    "inputs": ["nea_leu"],
+    "outputs": ["nea_spent_pwr_uox"]
+  },
+}
+\end{Verbatim}
+\caption{NEA1a Reactor Facility Implemented in JSON}
+\label{fig:facility}
+\end{figure}
+
+\subsubsection{Fuel Cycle}
+The final section of the scenario specification is that related to global fuel
+cycle parameters, encapsulating the dynamism of the simulation. This section
+describes the time scale of the simulation, the power demand for the system as a
+function of reactor type, any initial facilities in the simulation, and a notion
+of technology availability, i.e., time points at which facilities can be/are to
+be built.
+
+\subsubsection{Translators}
+As a final note, the authors would like to point out that the specification
+language is intended to be ubiquitous. Any benchmark fuel cycle scenario can be
+written in the language, allowing the simulation community to be able to refer
+to a single, unambiguous specification source. We fully expect there to be some
+work taken on the part of the simulation developers to translate the
+specification into a valid input for their simulator. As part of this work, we
+have implemented such a translator in Python for the Cyclus fuel cycle
+simulator \cite{cyclus2012}.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Once-Through Benchmark Suite}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Conclusion}
