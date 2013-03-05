@@ -12,8 +12,8 @@
 \usepackage{authblk}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\title{Developing Standardized, Open Benchmarks and a Language Specification 
-for the Simulation of Dynamic Fuel Cycles}
+\title{Developing Standardized, Open Benchmarks and a Corresponding 
+Specification Language for the Simulation of Dynamic Fuel Cycles}
 \author[*]{Matthew Gidden}
 \author[$\dag$]{Anthony Scopatz}
 \author[*]{Paul Wilson}
@@ -41,8 +41,10 @@ performed to date with a range of fidelity of scenario specification. This work
 proposes a common language by which such specifications can be described and
 provides some simple examples of its use.
 
+\section{Overview}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Current Benchmark Landscape}
+\subsection{Current Benchmark Landscape}
 There have been a number of different benchmarking exercises attempted by
 governmental and international agencies including the International Atomic
 Energy Agency (IAEA) \cite{_international_2011} and the Nuclear Waste Technology
@@ -54,69 +56,76 @@ reactors with different conversion ratios) \cite{guerin_benchmark_2009},
 including a specification with higher fidelity than those above. The
 Organization for Economic Cooperation and Development (OECD) has also led a
 benchmarking exercise \cite{boucher_benchmark_2012} and provided a more detailed
-specification \cite{boucher_specification_2008}. In all cases, benchmark
-parameter specifications exist only in tabularized form in the given report.
+specification \cite{boucher_specification_2008}. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Motivation}
-Common amongst all of the above-mentioned benchmarks is a lack of a common
+\subsection{Motivation}
+Ubiquitous amongst all of the above-mentioned benchmarks is a lack of a common
 language to describe scenario specifications. In general, specifications are
 agreed upon during some number of meetings and/or conference calls and perhaps
 are even iterated upon in order to match specific tunings required by some
 simulators. Once set, a given specification is generally included as prose and
-numeric tables in a final report. Including a common specification language
-would greatly benefit the fuel cycle simulation community by allowing for a
-common, well-defined specification of a set of scenario parameters to be
-discussed. Moreover, a computer-readable scenario definition implementation
-would assist in the automation of benchmark analyses. This is not an uncommon
-problem in the computational nuclear community, and we look to the nuclear data
-community for inspiration. There has been a push to update the Evaluated Nuclear
-Data Format (ENDF) utilizing a more general language termed Generalized Nuclear
-Data (GND) \cite{mattoon_generalized_2012}. This language is a
-\emph{specification} rather than an \emph{implementation}, allowing others to
-tailor implementation details (e.g. via XML, HDF5, etc.) to their needs. We
-propose using a similar formalism to define scenarios that is independent of the
-analysis mechanism (e.g. system dynamics, agent-based modeling).
+numeric tables in a final report. It should be noted that not all benchmarking
+exercises provide fully formed scenarios, i.e., there are ``free parameters''
+\cite{scopatz_fuel_2011}.
+
+Developing a specification language would greatly benefit the fuel cycle
+simulation community by allowing for a common, well-defined specification of a
+set of scenario parameters to be discussed. Moreover, a computer-readable
+scenario definition implementation would assist in the automation of benchmark
+analyses. This is not an uncommon problem in the computational nuclear
+community, and we look to the nuclear data community for inspiration. There has
+been a push to update the Evaluated Nuclear Data Format (ENDF) utilizing a more
+general language termed Generalized Nuclear Data (GND)
+\cite{mattoon_generalized_2012}. This language is a \emph{specification} rather
+than an \emph{implementation}, allowing others to tailor implementation details
+(e.g. via XML, HDF5, etc.) to their needs. We propose using a similar formalism
+to define scenarios that is independent of the analysis mechanism (e.g. system
+dynamics, agent-based modeling).
 
 Another mutual thread amongst previous benchmarking exercises is a shallow
-treatment of the once-through fuel cycle. Although conceptually rather simple,
-the community will benefit from a thorough suite of benchmarks that cover both
-the facility-level and simulation-wide metrics. Additionally, it is the basis
-from which any other fuel cycles will be expanded.  Thus such a suite of
-benchmarks should be satisfied by any simulator looking to analyze more advanced
-fuel cycles. Accordingly, this work provides a set of suggested benchmarks
-written in the proposed specification language and implemented in a
-computer-readable format.
+treatment of the once-through fuel cycle. Although conceptually simple, a
+thorough suite of benchmarks that cover both the facility-level and
+simulation-wide metrics will provide insight into how the mechanics of various
+simulators can affect benchmarking outcomes. Additionally, the once-through fuel
+cycle is the basis from which any other fuel cycles will be expanded.
+Accordingly, such a suite of benchmarks should be satisfied by any simulator
+looking to analyze more advanced fuel cycles. This work provides a set of
+suggested benchmarks written in the proposed specification language and
+implemented in a computer-readable format.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Output Metrics}
+\subsection{Output Metrics}
 Any benchmark must specify the output that is expected from the simulation. For
-dynamic fuel cycles, the comparable output is numerous, and not all simulators
-are able to provide all possible types of output. Examples of such output are:
-eletrical capacity, natural uranium consumption, SWU usage, amount of fuel
+dynamic fuel cycles, the comparable output is myriad, and not all simulators are
+able to provide all possible types of output. Examples of such output are:
+electrical capacity, natural uranium consumption, SWU usage, amount of fuel
 entering reactors, amount of fuel exiting reactors, amount of fuel in storage,
 and the amount of separated material
 \cite{boucher_specification_2008}\cite{guerin_benchmark_2009}. Each of the above
-metrics is historically given on a per-year basis, and many are separated into
+metrics is given on a per-year basis, which has historically been the
+agreed-upon metric time step for comparison. Many are separated into
 subcategories by facility type (e.g. types of reactors for electrical capacity)
 or by element type (e.g. transuranics/plutonium/minor actinides in storage or
 that have been separated). Furthermore, metrics related to material flow can be
 broken down into their isotopic composition for comparison. This allows
 additional metrics to be used, including nonproliferation metrics such as
-plutonium heating at various locations in the fuel cycle. In general, though, it
-should be expected that higher-level (i.e. elemental quantity) metrics will be
-easier to match than lower-level metrics.
+plutonium heating at various locations in the fuel cycle. In general, it should
+be expected that higher-level (i.e. elemental quantity) metrics will be easier
+to match than lower-level metrics, for higher-level metrics correspond to
+simulation mechanics fidelity whereas lower-level metrics correspond to physical
+modeling fidelity.
 
-For this work, the authors will provide analytically derived metrics for very
-simple (e.g. one reactor) cases. For larger cases of the once-through fuel
-cycle, the simulation community can generally provide a consesus answer, and the
-authors provide their solution for important high-level metrics such as natural
-uranium and SWU consumption as well as mass flows exiting reactors. The metrics
-required for advanced fuel cycles, i.e. fuel cycles with reprocessed fuel use,
-are more difficult and the community has not historically agreed upon a ``right
-answer'' in prior studies for most metrics except in simple cases with no growth
-\cite{guerin_benchmark_2009}. This is an area that requires continued
-collaboration and is prime for future work in the benchmarking arena.
+For this work, the authors provide analytically derived metrics for very simple
+(e.g. one reactor) cases. For larger cases of the once-through fuel cycle, the
+simulation community can generally provide a consensus answer, and the authors
+provide their solution for important high-level metrics such as natural uranium
+and SWU consumption as well as mass flows exiting reactors. The metrics required
+for advanced fuel cycles, i.e. fuel cycles with reprocessed fuel use, are more
+difficult and the community has not agreed upon a ``right answer'' in prior
+studies for most metrics except in simple cases with no growth after tuning
+between simulators \cite{guerin_benchmark_2009}. This is an area that requires
+continued collaboration and is prime for future work in the benchmarking arena.
 
 %%
 % leaving off here for now
