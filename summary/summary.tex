@@ -285,7 +285,7 @@ have implemented such a translator in Python for the Cyclus fuel cycle
 simulator \cite{cyclus2012}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Once-Through Benchmark Suite}
+\subsection{Once-Through Benchmarks}
 The goal of the once-through verification benchmark suite is to provide a
 low-level view of simulation mechanics in order to gain insight into differences
 amongst simulators in more advanced benchmarks. We focus this suite on two main
@@ -303,18 +303,47 @@ power demand. For the final set we will describe and analyze the low-demand
 once-through case give in the INPRO benchmark \cite{_international_2011}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Recycle Benchmarks}
+The modeling of fuel cycles that utilize recycling of spent nuclear fuel
+introduces a number of complexities, including the need to model supporting
+facilities. As with the once-through benchmarks, we propose a series of
+benchmarks increasing in simulation size, adding complexity along the way. The
+end goal is a scenario benchmark that captures the set of facets involved in
+modeling recycling cases. Having isolated any simulator mechanics issued related
+to the introduction of facilities in the once-through benchmarking case, we
+focus the recycle benchmarks on the interaction between advanced reactors and
+their supporting facilities.
+
+We again focus on two classes of benchmarks following the classes of fuel cycles
+that use recycling: modified open, where recycling involves a single stream of
+material, and full recycle, where recycling involves more than one stream of
+material. This is a similar strategy to previous benchmarking exercises
+\cite{boucher_specification_2008}. We, however, propose a first scenario that
+utilizes a single reactor fueled with recycled material in each case. This lays
+the foundation for comparisons amongst simulators for the 1-reactor case much
+like in the once-through benchmark suite. The next benchmark scenario in each
+class calls for multiple reactors to be built (again without growth in demand
+for the advanced reactors). The final benchmark models an expansion of advanced
+reactors in order to capture the symbiotic relationship between the reactors
+that use fresh fuel and those that use recycled fuel. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Conclusion}
 The fuel cycle simulation community has long been a dispersed group of actors
 with a common goal of verification and validation of their analysis
 tools. Providing a common suite of open benchmarks using a common scenario
 definition language will facilitate the efficient pursuit of such an
 endeavor. This work provides a first look at such tools and their implementation
-for the once-through fuel cycle. The once-through case was chosen because of
-it's simplicity - it allows for direct, simple comparisons amonth various
-simulation mechanics regarding building decisions and material flows. A natural
-next step is to expand these tools for advanced fuel cycles, perhaps first those
-with single MOX recycle and then more generally for fuel recycle via
-breeder/burner reactors.
+for the once-through and recycle fuel cycles. The once-through case is important
+because of it's simplicity - it allows for direct, simple comparisons among
+various simulation mechanics regarding building decisions and material
+flows. The goal of this work is to provide the community with an open set of
+fully specified benchmarks that range from the very simple, in order to measure
+the difference in simulation mechanics between simulators, to the more
+complicated, designed to highlight structural differences in the way simulators
+deal with full-fledged scenarios that include material recycling. From this
+basis, the community can make meaningful comparisons amongst simulators and grow
+the set of available benchmarks in a common language.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Acknowledgments}
