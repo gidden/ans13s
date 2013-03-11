@@ -41,7 +41,8 @@ basic functionality as a means of verification and validation of the variety of
 fuel cycle simulation applications. A number of such exercises have been
 performed to date with a range of fidelity of scenario specification. This work
 proposes a common language by which such specifications can be described and
-provides some simple examples of its use.
+some simple benchmarks missing from the current literature that can provide an
+examples of its use.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Overview}
@@ -58,8 +59,9 @@ benchmarking exercise for dynamic simulators of advanced fuel cycles (i.e. fast
 reactors with different conversion ratios) \cite{guerin_benchmark_2009},
 including a specification with higher fidelity than those above. The
 Organization for Economic Cooperation and Development (OECD) has also led a
-benchmarking exercise \cite{boucher_benchmark_2012} and provided a more detailed
-specification \cite{boucher_specification_2008}. 
+benchmarking exercise that covers an example each of open, modified open, and
+closed fuel cycles \cite{boucher_benchmark_2012} and provided a more detailed
+specification \cite{boucher_specification_2008}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Motivation}
@@ -74,25 +76,26 @@ unconstrained parameters which simulators that require such inputs must make
 arbitrary best estimates for their values \cite{scopatz_fuel_2011}.
 
 Developing a specification language would greatly benefit the fuel cycle
-simulation community by allowing for a common and well-defined 
-set of scenario parameters to be discussed. Moreover, a computer-readable
-scenario definition implementation would assist in the automation of benchmark
-analyses. This is not an uncommon problem in the computational nuclear
-engineering. We have thus looked to the nuclear data community for inspiration. 
-There has
-been a push to update the Evaluated Nuclear Data Format (ENDF) utilizing a more
-general language termed Generalized Nuclear Data (GND)
-\cite{mattoon_generalized_2012}. This language is a \emph{specification} rather
-than an \emph{implementation}, allowing others to tailor implementation details
-(e.g. via XML, HDF5, etc.) to their needs. We propose using a similar formalism
-to define scenarios that is independent of the analysis mechanism (e.g. system
-dynamics, agent-based modeling).
+simulation community by allowing for a common and well-defined set of scenario
+parameters to be discussed. Moreover, a computer-readable scenario definition
+implementation would assist in the automation of benchmark analyses. This is not
+an uncommon problem in computational nuclear engineering. We have thus looked to
+the nuclear data community for inspiration.  There has been a push to update the
+Evaluated Nuclear Data Format (ENDF) utilizing a more general language termed
+Generalized Nuclear Data (GND) \cite{mattoon_generalized_2012}. This language is
+a \emph{specification} rather than an \emph{implementation}, allowing others to
+tailor implementation details (e.g. via XML, HDF5, etc.) to their needs. We
+propose using a similar formalism to define scenarios that is independent of the
+analysis mechanism (e.g. system dynamics, agent-based modeling).
 
 Another mutual thread amongst previous benchmarking exercises is a shallow
-treatment of the once-through fuel cycle. Although conceptually simple, a
-thorough suite of benchmarks that cover both the facility-level and
-simulation-wide metrics will provide insight into how the mechanics of various
-simulators can affect benchmarking outcomes. Additionally, the once-through fuel
+treatment of low-level benchmarks. Although conceptually simple, a thorough
+suite of benchmarks that cover both the facility-level and simulation-wide
+metrics will provide insight into how the mechanics of various simulators can
+affect benchmarking outcomes. Again looking to previous works in computational
+nuclear engineering, we propose small problems with analytical solutions similar
+to other benchmarking exercises \cite{wagner_mcnp:_1992}. We add mostly to the
+available set of once-through simulation benchmarks, as the once-through fuel
 cycle is the basis from which any other fuel cycles will be expanded.
 Accordingly, such a suite of benchmarks should be satisfied by any simulator
 looking to analyze more advanced fuel cycles. This work provides a set of
