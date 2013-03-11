@@ -40,9 +40,9 @@ thereof. Accordingly, there is strong motivation for consistency of testing
 basic functionality as a means of verification and validation of the variety of
 fuel cycle simulation applications. A number of such exercises have been
 performed to date with a range of fidelity of scenario specification. This work
-proposes a common language by which such specifications can be described and
-some simple benchmarks missing from the current literature that can provide an
-examples of its use.
+proposes a common language which can describe such specifications and
+some examples of its use in the form of simple benchmarks missing in the 
+current literature.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Overview}
@@ -67,13 +67,13 @@ specification \cite{boucher_specification_2008}.
 \subsection{Motivation}
 Ubiquitous amongst all of the above-mentioned benchmarks is a lack of a common
 language to describe scenario specifications. In general, specifications are
-agreed upon during some number of meetings and/or conference calls and perhaps
-are even iterated upon in order to match specific tunings required by some
-simulators. Once set, a given specification is generally included as prose and
-numeric tables in a final report. It should be noted that not all benchmarking
-exercises provide fully specified scenarios. In these cases there are free, 
-unconstrained parameters which simulators that require such inputs must make
-arbitrary best estimates for their values \cite{scopatz_fuel_2011}.
+agreed upon during some number of meetings and/or conference calls. These 
+specifications are even iterated upon in order to match the tunings required 
+by particular simulators. Once set, a given specification is generally included 
+as prose and numeric tables in a final report. It should be noted that not all 
+benchmarking exercises provide fully specified scenarios. In these cases there 
+are free, unconstrained parameters which simulators that require such inputs 
+must make arbitrary best estimates for their values \cite{scopatz_fuel_2011}.
 
 Developing a specification language would greatly benefit the fuel cycle
 simulation community by allowing for a common and well-defined set of scenario
@@ -119,13 +119,11 @@ that have been separated). Furthermore, metrics related to material flow can be
 broken down into their isotopic composition for comparison. This allows
 additional metrics to be used, including nonproliferation metrics such as
 plutonium heating at various locations in the fuel cycle. In general, it should
-be expected that higher-level (i.e., elemental quantity) metrics will be easier
-to match than lower-level metrics, for higher-level metrics correspond to
-simulation mechanics fidelity whereas lower-level metrics correspond to physical
-modeling fidelity.
+be expected that higher-level aggregate metrics (i.e., elemental quantity) will be 
+easier to match than lower-level metrics (i.e. isotopic quantities).
 
-For this work, the authors provide analytically derived metrics for very simple
-(e.g. one reactor) cases. For larger cases of the once-through fuel cycle, the
+As an initial attempt, the authors provide analytically derived metrics for simple,
+single reactor cases. For larger cases of the once-through fuel cycle, the
 simulation community can generally provide a consensus answer, and the authors
 provide their solution for important high-level metrics such as natural uranium
 and SWU consumption as well as mass flows exiting reactors. The metrics required
@@ -170,7 +168,7 @@ encapsulate additional information about units and information that may be
 specific to a subset of simulators but its not necessarily housed in the minimum
 set of required parameters. An overview of the proposed specification
 language and implementation examples in JavaScript Object Notation
-(JSON)\cite{_json_2001} follows. All examples are for taken from for the NEA 1a
+(JSON)\cite{_json_2001} follows. All examples are taken from the NEA 1a
 benchmark\cite{boucher_specification_2008}.
 
 \subsubsection{Materials}
