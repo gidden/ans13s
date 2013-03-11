@@ -40,9 +40,9 @@ thereof. Accordingly, there is strong motivation for consistency of testing
 basic functionality as a means of verification and validation of the variety of
 fuel cycle simulation applications. A number of such exercises have been
 performed to date with a range of fidelity of scenario specification. This work
-proposes a common language by which such specifications can be described and
-some simple benchmarks missing from the current literature that can provide an
-examples of its use.
+proposes a common language which can describe such specifications and
+some examples of its use in the form of simple benchmarks missing in the 
+current literature.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Overview}
@@ -67,13 +67,13 @@ specification \cite{boucher_specification_2008}.
 \subsection{Motivation}
 Ubiquitous amongst all of the above-mentioned benchmarks is a lack of a common
 language to describe scenario specifications. In general, specifications are
-agreed upon during some number of meetings and/or conference calls and perhaps
-are even iterated upon in order to match specific tunings required by some
-simulators. Once set, a given specification is generally included as prose and
-numeric tables in a final report. It should be noted that not all benchmarking
-exercises provide fully specified scenarios. In these cases there are free, 
-unconstrained parameters which simulators that require such inputs must make
-arbitrary best estimates for their values \cite{scopatz_fuel_2011}.
+agreed upon during some number of meetings and/or conference calls. These 
+specifications are even iterated upon in order to match the tunings required 
+by particular simulators. Once set, a given specification is generally included 
+as prose and numeric tables in a final report. It should be noted that not all 
+benchmarking exercises provide fully specified scenarios. In these cases there 
+are free, unconstrained parameters which simulators that require such inputs 
+must make arbitrary best estimates for their values \cite{scopatz_fuel_2011}.
 
 Developing a specification language would greatly benefit the fuel cycle
 simulation community by allowing for a common and well-defined set of scenario
@@ -110,7 +110,7 @@ able to provide all possible types of output. Examples of such output are:
 electrical capacity, natural uranium consumption, SWU usage, amount of fuel
 entering reactors, amount of fuel exiting reactors, amount of fuel in storage,
 and the amount of separated material
-\cite{boucher_specification_2008}\cite{guerin_benchmark_2009}. Each of the above
+\cite{guerin_benchmark_2009,boucher_specification_2008}. Each of the above
 metrics is given on a per-year basis, which has historically been the
 agreed-upon metric time step for comparison. Many are separated into
 subcategories by facility type (e.g. types of reactors for electrical capacity)
@@ -119,19 +119,17 @@ that have been separated). Furthermore, metrics related to material flow can be
 broken down into their isotopic composition for comparison. This allows
 additional metrics to be used, including nonproliferation metrics such as
 plutonium heating at various locations in the fuel cycle. In general, it should
-be expected that higher-level (i.e., elemental quantity) metrics will be easier
-to match than lower-level metrics, for higher-level metrics correspond to
-simulation mechanics fidelity whereas lower-level metrics correspond to physical
-modeling fidelity.
+be expected that higher-level aggregate metrics (i.e., elemental quantity) will be 
+easier to match than lower-level metrics (i.e. isotopic quantities).
 
-For this work, the authors provide analytically derived metrics for very simple
-(e.g. one reactor) cases. For larger cases of the once-through fuel cycle, the
-simulation community can generally provide a consensus answer, and the authors
+As an initial attempt, the authors provide analytically derived metrics for simple,
+single reactor cases. For larger cases of the once-through fuel cycle, the
+extant liturature can generally provide a consensus answer, and the authors
 provide their solution for important high-level metrics such as natural uranium
 and SWU consumption as well as mass flows exiting reactors. The metrics required
-for advanced fuel cycles, i.e., fuel cycles with reprocessed fuel use, are more
-difficult and the community has not agreed upon a ``right answer'' in prior
-studies for most metrics except in simple cases with no growth after tuning
+for advanced fuel cycles -- fuel cycles with reprocessed fuel use -- are more
+difficult and there is no sole agreed upon a ``right answer'' 
+except in simple cases with no growth after tuning
 between simulators \cite{guerin_benchmark_2009}. This is an area that requires
 continued collaboration and is prime for future work in the benchmarking arena.
 
@@ -141,50 +139,51 @@ continued collaboration and is prime for future work in the benchmarking arena.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Scenario Specification Language}
 Any benchmark must be defined in such a way that it can be interpreted by
-different simulators. There is, therefore, an underlying structure that can be
-leveraged in order to construct a common language by which different scenarios
-can be expressed. Such a language needs to minimally define simulation input as
+different simulators. Thus there is an underlying structure that can be
+leveraged in order to construct a common language with which all scenarios
+may be expressed. Such a language needs to minimally define simulation input as
 to cover all required specifics. What is meant by ``minimally defining'' a
 simulation is informed by the output metrics used in the benchmark. For example,
 in prior benchmarking exercises, the number of reactors of a given type in
 service is an agreed upon metric. Accordingly, information is required regarding
-when reactors enter the simulation, i.e., a demand curve, and when reactors leave
-the simulation, i.e., a lifetime. For this metric, licensing and construction
-times are extraneous information vis-a-vis simulation mechanics -- that is to
-say: if a simulator uses them, they inform a pre-planning process to meet the
-required demand curve; the output metric is only related to the demand curve
-being met at the requisite time.
+when reactors enter the simulation (such as demand curves) and when reactors leave
+the simulation (core lifetimes). For the number of reactors built metric, 
+the licensing and construction times are extraneous information vis-a-vis 
+simulation mechanics. If a simulator uses these parameters, they inform a 
+pre-planning process to meet the required demand curve and the output metric 
+is only related to the demand curve being met at the requisite time.
 
-Determining the minimal set of information to describe these benchmark scenarios
-is a simulation-community-level discussion topic. The authors have proposed such
+Determining the minimal set of information is an ongoing discussion topic
+that is resolved on a scenario-by-sceanrio basis. The authors have proposed such
 a set of information to describe the once-through fuel cycle as a
-proof-of-principle, and look to future work and the community to continue to
-develop the language for advanced cycle cases. 
+proof-of-principle. 
 
-In order to describe scenario definitions, there are largely three main
-categories of parameters: materials used in the simulation, facilities used in
+In order to describe scenario definitions there are three top-level
+parameter categories: materials used in the simulation, facilities used in
 the simulation, and over-arching fuel-cycle scenario information (such as power
 curves). We specify these parameters using language constructs such as
-dictionaries, lists, and attributes. We include the latter construct in order to
+mappings, lists, and metadata attributes. We include the latter construct in order to
 encapsulate additional information about units and information that may be
 specific to a subset of simulators but its not necessarily housed in the minimum
 set of required parameters. An overview of the proposed specification
 language and implementation examples in JavaScript Object Notation
-(JSON)\cite{_json_2001} follows. All examples are for taken from for the NEA 1a
-benchmark\cite{boucher_specification_2008}.
+(JSON) \cite{_json_2001} follows. All examples are taken from the NEA 1a
+benchmark \cite{boucher_specification_2008}.
 
 \subsubsection{Materials}
 Materials in a fuel cycle simulation generally come in two flavors: specified
 recipes, which are normally defined as input for reactors, and the resulting
 output which is a function of the input and applied burnup. We denote the two
-flavors as being recipes or not. To begin, all material types are specified by a
-given name. At the current time, we apply a rigid definition of constraints on
-recipes, i.e., there are specified concentration values for each isotope in the
-recipe, and a density is provided. Because the output is a result of a physics
+flavors as being recipes or not. To begin, all material types are tagged by a
+given name. Recipies are currently the application of a rigid definition of 
+constraints. There are hard-coded concentration values for each isotope in the
+recipe as well as a static density value. Because the output is a result of a physics
 calculation which may be implemented with varying fidelity, a less rigid
 approach is used for non-recipes. The specification does not explicitly name all
-isotopes in the output fuel; rather, it defines actual constraints on certain
-isotopes that are physically provable. Finally, we provide a parent field which
+isotopes in the output fuel. Rather it defines more liberal constraints on certain
+isotopes that are physically provable.  (For example, the a contraint may be 
+phrased as ``the concentration of species X must lie between concentrations A and 
+B.'') Lastly, we provide a parent field which
 takes as an argument another material. This is a short-hand way of denoting
 trees of materials, i.e., multiple materials with mutual constraints. An example
 is provided in Figure~\ref{fig:material}.
@@ -273,16 +272,16 @@ The final section of the scenario specification is that related to global fuel
 cycle parameters, encapsulating the dynamism of the simulation. This section
 describes the time scale of the simulation, the power demand for the system as a
 function of reactor type, any initial facilities in the simulation, and a notion
-of technology availability, i.e., time points at which facilities can be/are to
-be built.
+of technology availability, i.e., time points at which facilities may be built.
 
 \subsubsection{Translators}
-As a final note, the authors would like to point out that the specification
+It is worth noting that the specification
 language is intended to be ubiquitous. Any benchmark fuel cycle scenario can be
 written in the language, allowing the simulation community to be able to refer
-to a single, unambiguous specification source. We fully expect there to be some
-work taken on the part of the simulation developers to translate the
-specification into a valid input for their simulator. As part of this work, we
+to a single, unambiguous specification source. There is thus expected 
+work taken on the part of simulation developers to translate the
+specification into a valid input for their respective  simulator. Done correctly, 
+this is an automated process.  As part of this work, the authors
 have implemented such a translator in Python for the Cyclus fuel cycle
 simulator \cite{cyclus2012}.
 
