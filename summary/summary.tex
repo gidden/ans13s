@@ -41,7 +41,8 @@ basic functionality as a means of verification and validation of the variety of
 fuel cycle simulation applications. A number of such exercises have been
 performed to date with a range of fidelity of scenario specification. This work
 proposes a common language by which such specifications can be described and
-provides some simple examples of its use.
+some simple benchmarks missing from the current literature that can provide an
+examples of its use.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Overview}
@@ -54,12 +55,13 @@ Energy Agency (IAEA) \cite{_international_2011} and the Nuclear Waste Technology
 Review Board (NWTRB) \cite{_nuclear_2011}.  Both examples formulated their
 benchmark specifications at meetings involving all participants, but have not
 provided the full specifications to the public realm. MIT coordinated a
-benchmarking exercise for dynamic simulators of advanced fuel cycles (i.e. fast
+benchmarking exercise for dynamic simulators of advanced fuel cycles (i.e., fast
 reactors with different conversion ratios) \cite{guerin_benchmark_2009},
 including a specification with higher fidelity than those above. The
 Organization for Economic Cooperation and Development (OECD) has also led a
-benchmarking exercise \cite{boucher_benchmark_2012} and provided a more detailed
-specification \cite{boucher_specification_2008}. 
+benchmarking exercise that covers an example each of open, modified open, and
+closed fuel cycles \cite{boucher_benchmark_2012} and provided a more detailed
+specification \cite{boucher_specification_2008}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Motivation}
@@ -74,25 +76,26 @@ unconstrained parameters which simulators that require such inputs must make
 arbitrary best estimates for their values \cite{scopatz_fuel_2011}.
 
 Developing a specification language would greatly benefit the fuel cycle
-simulation community by allowing for a common and well-defined 
-set of scenario parameters to be discussed. Moreover, a computer-readable
-scenario definition implementation would assist in the automation of benchmark
-analyses. This is not an uncommon problem in the computational nuclear
-engineering. We have thus looked to the nuclear data community for inspiration. 
-There has
-been a push to update the Evaluated Nuclear Data Format (ENDF) utilizing a more
-general language termed Generalized Nuclear Data (GND)
-\cite{mattoon_generalized_2012}. This language is a \emph{specification} rather
-than an \emph{implementation}, allowing others to tailor implementation details
-(e.g. via XML, HDF5, etc.) to their needs. We propose using a similar formalism
-to define scenarios that is independent of the analysis mechanism (e.g. system
-dynamics, agent-based modeling).
+simulation community by allowing for a common and well-defined set of scenario
+parameters to be discussed. Moreover, a computer-readable scenario definition
+implementation would assist in the automation of benchmark analyses. This is not
+an uncommon problem in computational nuclear engineering. We have thus looked to
+the nuclear data community for inspiration.  There has been a push to update the
+Evaluated Nuclear Data Format (ENDF) utilizing a more general language termed
+Generalized Nuclear Data (GND) \cite{mattoon_generalized_2012}. This language is
+a \emph{specification} rather than an \emph{implementation}, allowing others to
+tailor implementation details (e.g. via XML, HDF5, etc.) to their needs. We
+propose using a similar formalism to define scenarios that is independent of the
+analysis mechanism (e.g. system dynamics, agent-based modeling).
 
 Another mutual thread amongst previous benchmarking exercises is a shallow
-treatment of the once-through fuel cycle. Although conceptually simple, a
-thorough suite of benchmarks that cover both the facility-level and
-simulation-wide metrics will provide insight into how the mechanics of various
-simulators can affect benchmarking outcomes. Additionally, the once-through fuel
+treatment of low-level benchmarks. Although conceptually simple, a thorough
+suite of benchmarks that cover both the facility-level and simulation-wide
+metrics will provide insight into how the mechanics of various simulators can
+affect benchmarking outcomes. Again looking to previous works in computational
+nuclear engineering, we propose small problems with analytical solutions similar
+to other benchmarking exercises \cite{wagner_mcnp:_1992}. We add mostly to the
+available set of once-through simulation benchmarks, as the once-through fuel
 cycle is the basis from which any other fuel cycles will be expanded.
 Accordingly, such a suite of benchmarks should be satisfied by any simulator
 looking to analyze more advanced fuel cycles. This work provides a set of
@@ -116,7 +119,7 @@ that have been separated). Furthermore, metrics related to material flow can be
 broken down into their isotopic composition for comparison. This allows
 additional metrics to be used, including nonproliferation metrics such as
 plutonium heating at various locations in the fuel cycle. In general, it should
-be expected that higher-level (i.e. elemental quantity) metrics will be easier
+be expected that higher-level (i.e., elemental quantity) metrics will be easier
 to match than lower-level metrics, for higher-level metrics correspond to
 simulation mechanics fidelity whereas lower-level metrics correspond to physical
 modeling fidelity.
@@ -126,7 +129,7 @@ For this work, the authors provide analytically derived metrics for very simple
 simulation community can generally provide a consensus answer, and the authors
 provide their solution for important high-level metrics such as natural uranium
 and SWU consumption as well as mass flows exiting reactors. The metrics required
-for advanced fuel cycles, i.e. fuel cycles with reprocessed fuel use, are more
+for advanced fuel cycles, i.e., fuel cycles with reprocessed fuel use, are more
 difficult and the community has not agreed upon a ``right answer'' in prior
 studies for most metrics except in simple cases with no growth after tuning
 between simulators \cite{guerin_benchmark_2009}. This is an area that requires
@@ -138,19 +141,19 @@ continued collaboration and is prime for future work in the benchmarking arena.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Scenario Specification Language}
 Any benchmark must be defined in such a way that it can be interpreted by
-different simulators. There is, therefore, an underlying structure exists that
-can be leveraged in order to construct a common language by which different
-scenarios can be expressed. Such a language needs to minimally define simulation
-input as to cover all required specifics. What is meant by ``minimally
-defining'' a simulation is informed by the output metrics used in the
-benchmark. For example, in prior benchmarking exercises, the number of reactors
-of a given type in service is an agreed upon metric. Accordingly, information is
-required regarding when reactors enter the simulation, i.e. a demand curve, and
-when reactors leave the simulation, i.e. a lifetime. For this metric, licensing
-and construction times are extraneous information vis-a-vis simulation mechanics
--- that is to say: if a simulator uses them, they inform a pre-planning process
-to meet the required demand curve; at the end of the day, the demand curve is
-met at the requisite time.
+different simulators. There is, therefore, an underlying structure that can be
+leveraged in order to construct a common language by which different scenarios
+can be expressed. Such a language needs to minimally define simulation input as
+to cover all required specifics. What is meant by ``minimally defining'' a
+simulation is informed by the output metrics used in the benchmark. For example,
+in prior benchmarking exercises, the number of reactors of a given type in
+service is an agreed upon metric. Accordingly, information is required regarding
+when reactors enter the simulation, i.e., a demand curve, and when reactors leave
+the simulation, i.e., a lifetime. For this metric, licensing and construction
+times are extraneous information vis-a-vis simulation mechanics -- that is to
+say: if a simulator uses them, they inform a pre-planning process to meet the
+required demand curve; the output metric is only related to the demand curve
+being met at the requisite time.
 
 Determining the minimal set of information to describe these benchmark scenarios
 is a simulation-community-level discussion topic. The authors have proposed such
@@ -165,8 +168,7 @@ curves). We specify these parameters using language constructs such as
 dictionaries, lists, and attributes. We include the latter construct in order to
 encapsulate additional information about units and information that may be
 specific to a subset of simulators but its not necessarily housed in the minimum
-set of required parameters. Accordingly, we focus on parameters housed the the
-two former constructs in our example. An overview of the proposed specification
+set of required parameters. An overview of the proposed specification
 language and implementation examples in JavaScript Object Notation
 (JSON)\cite{_json_2001} follows. All examples are for taken from for the NEA 1a
 benchmark\cite{boucher_specification_2008}.
@@ -290,7 +292,7 @@ The goal of the once-through verification benchmark suite is to provide a
 low-level view of simulation mechanics in order to gain insight into differences
 amongst simulators in more advanced benchmarks. We focus this suite on two main
 areas: the entrance and exit of reactors in the simulation as well as material
-flows into and out of reactors. Input flows are analyzed in terms of quanitity,
+flows into and out of reactors. Input flows are analyzed in terms of quantity,
 SWU usage, and natural uranium usage. Output flows are analyzed in terms of
 quantity.
 
@@ -300,7 +302,7 @@ building mechanisms and simplest material flows, the first benchmark set will
 last for one reactor lifetime. The second set will investigate simple dynamic
 reactor building, utilizing a simulation with exponential growth curves for
 power demand. For the final set we will describe and analyze the low-demand
-once-through case give in the INPRO benchmark \cite{_international_2011}.
+once-through case given in the INPRO benchmark \cite{_international_2011}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Recycle Benchmarks}
@@ -309,7 +311,7 @@ introduces a number of complexities, including the need to model supporting
 facilities. As with the once-through benchmarks, we propose a series of
 benchmarks increasing in simulation size, adding complexity along the way. The
 end goal is a scenario benchmark that captures the set of facets involved in
-modeling recycling cases. Having isolated any simulator mechanics issued related
+modeling recycling cases. Having isolated any simulator mechanics issues related
 to the introduction of facilities in the once-through benchmarking case, we
 focus the recycle benchmarks on the interaction between advanced reactors and
 their supporting facilities.
