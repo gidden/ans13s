@@ -141,19 +141,19 @@ continued collaboration and is prime for future work in the benchmarking arena.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Scenario Specification Language}
 Any benchmark must be defined in such a way that it can be interpreted by
-different simulators. There is, therefore, an underlying structure exists that
-can be leveraged in order to construct a common language by which different
-scenarios can be expressed. Such a language needs to minimally define simulation
-input as to cover all required specifics. What is meant by ``minimally
-defining'' a simulation is informed by the output metrics used in the
-benchmark. For example, in prior benchmarking exercises, the number of reactors
-of a given type in service is an agreed upon metric. Accordingly, information is
-required regarding when reactors enter the simulation, i.e. a demand curve, and
-when reactors leave the simulation, i.e. a lifetime. For this metric, licensing
-and construction times are extraneous information vis-a-vis simulation mechanics
--- that is to say: if a simulator uses them, they inform a pre-planning process
-to meet the required demand curve; at the end of the day, the demand curve is
-met at the requisite time.
+different simulators. There is, therefore, an underlying structure that can be
+leveraged in order to construct a common language by which different scenarios
+can be expressed. Such a language needs to minimally define simulation input as
+to cover all required specifics. What is meant by ``minimally defining'' a
+simulation is informed by the output metrics used in the benchmark. For example,
+in prior benchmarking exercises, the number of reactors of a given type in
+service is an agreed upon metric. Accordingly, information is required regarding
+when reactors enter the simulation, i.e. a demand curve, and when reactors leave
+the simulation, i.e. a lifetime. For this metric, licensing and construction
+times are extraneous information vis-a-vis simulation mechanics -- that is to
+say: if a simulator uses them, they inform a pre-planning process to meet the
+required demand curve; the output metric is only related to the demand curve
+being met at the requisite time.
 
 Determining the minimal set of information to describe these benchmark scenarios
 is a simulation-community-level discussion topic. The authors have proposed such
@@ -168,8 +168,7 @@ curves). We specify these parameters using language constructs such as
 dictionaries, lists, and attributes. We include the latter construct in order to
 encapsulate additional information about units and information that may be
 specific to a subset of simulators but its not necessarily housed in the minimum
-set of required parameters. Accordingly, we focus on parameters housed the the
-two former constructs in our example. An overview of the proposed specification
+set of required parameters. An overview of the proposed specification
 language and implementation examples in JavaScript Object Notation
 (JSON)\cite{_json_2001} follows. All examples are for taken from for the NEA 1a
 benchmark\cite{boucher_specification_2008}.
