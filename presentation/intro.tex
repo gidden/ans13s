@@ -2,8 +2,8 @@
 % Explain why this talk is being given.
 
 \begin{frame}[ctb!]
-  \frametitle{Introduction : Purpose}
-  Fuel cycle simulators are designed to answer policy-related questions
+  \frametitle{Introduction : Fuel Cycle Simulation}
+  Fuel cycle simulation (FCS) is designed to answer policy-related questions
   regarding transitions from one equilibrium state to another.
 
   \vspace{0.2cm}
@@ -21,15 +21,30 @@
 \end{frame}
 
 \begin{frame}[ctb!]
-  \frametitle{Introduction : VISION}
-  VISION is one such simulator developed at INL and used by the DOE. 
-  It is well represented in the literature and can model most aspects 
-  of the fuel cycle. \cite{yacout_vision_2006}
+  \frametitle{Introduction : Modeling Choices}
+  Each simulation effort has a number of choices when modeling the nuclear fuel
+  cycle, including:
   \begin{itemize}
-    \item continuous material flows
-    \item fleet-based facility deployment
-    \item some regional modeling capability
-    \item input/output via Excel
-    \item simulation engine via Powersim
+    \item what simulation engine kernel to use
+    \item what platform to build their simulation upon
+    \item the level of complexity with which to model simulation entity
+      interaction
+    \item the level of fidelity with which to model physical processes
+    \item the time-scale granularity
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[ctb!]
+  \frametitle{Introduction : FCS Development}
+  A number of different simulators are in active development around the world. 
+
+  \begin{itemize}
+    \item CAFCA - VENSIM \cite{busquim_e_silva_system_2008}
+    \item COSI - Java \cite{boucher_cosi:_2006}
+    \item Cyclus - C++ \cite{cyclus2012}
+    \item DANESS - Stella/iThink \cite{van_den_durpel_daness_2009}
+    \item NUWASTE - Excel \cite{_nuclear_2011}
+    \item VISION - Powersim \cite{jacobson_verifiable_2010}
+    \item DESAE, FAMILY, VISTA, etc.
   \end{itemize}
 \end{frame}
