@@ -14,6 +14,8 @@
   \end{enumerate}
 
   \pause
+
+  \vspace{0.4cm}
   
   We highlight the fact that:
 
@@ -89,33 +91,33 @@
     \end{verbatim}\end{small}\end{block}
     \column{.5\textwidth}\begin{block}{JSON Implementation}\begin{small}\begin{semiverbatim}
 \only<1>{\{"materials":    
-    "leu": \{
-      "attributes": \{
-        "recipe": true
-      \},
-      "constraints": [      
-        ["U235", 0.0495],
-        ["U238", 0.9505],
-        ["O16", 2.0],
-        ["density", 10.2]
-      ]
+  "leu": \{
+    "attributes": \{
+      "recipe": true
+    \},
+    "constraints": [      
+      ["U235", 0.0495],
+      ["U238", 0.9505],
+      ["O16", 2.0],
+      ["density", 10.2]
+    ]
   \},
 }
-\only<2>{"spent_pwr_uox": \{
-      "metadata": \{
-        "suggestedComposition": [
-          ["U235",0.02],
-          ...
-        ]
-      \},
-      "attributes": \{
-        "recipe": false
-      \},
-      "constraints": [
-        "id == 92235 && x < 0.0495",
-        "id == 92238 && x < 0.9505",
-        "density < 10.2"
+\only<2>{  "spent_pwr_uox": \{
+    "metadata": \{
+      "suggestedComposition": [
+        ["U235",0.02],
+        ...
       ]
+    \},
+    "attributes": \{
+      "recipe": false
+    \},
+    "constraints": [
+      "id == 92235 && x < 0.0495",
+      "id == 92238 && x < 0.9505",
+      "density < 10.2"
+    ]
   \}
 \}
 }
@@ -133,7 +135,7 @@
 * attributes
   * thermalPower: units
   * efficiency: units
-  * cycleLegth: units
+  * cycleLength: units
   * capacityFactor: units 
   * lifetime: \{units | distributed\} 
   * fuelTypes: fuel1, fuel2..
@@ -146,7 +148,7 @@
 \only<2>{* constraints
   * thermalPower: value
   * efficiency: value
-  * cycleLegth: value
+  * cycleLength: value
   * capacityFactor: value 
   * batches: value
   * lifetime: \{value | distributed\}
@@ -167,7 +169,8 @@
   "attributes": \{
     "thermalPower": ["float", "GWt"],
     "efficiency": ["float", "percent"],
-    "cycleLength": ["int", "month"],
+    "cycleLength": ["int", "EFPD"],
+    "capacityFactor": ["float", "percent"],
     "lifetime": ["int", "year"],
     "fuels": ["leu"],
     "batches": ["int", "", ["leu"]],
@@ -180,7 +183,8 @@
 \only<2>{  "constraints": [
     ["thermalPower", 4.25],
     ["efficiency", 34.1],
-    ["cycleLength", 12],
+    ["cycleLength", 292],
+    ["capacityFactor", 80.0],
     ["lifetime", 60],
     ["batches", 3, "leu"],
     ["coreLoading", 78.7, "leu"],
@@ -311,10 +315,7 @@
       "repository": 1,
     \},
     "demands": \{
-      "power": [
-               "GWe", 
-               ["lwrReactor"]
-      ]
+      "power": ["GWe",["lwrReactor"]]
     \}
   \}
 }
@@ -360,7 +361,11 @@
   With a common language specification, specific simulators can translate a
   specified benchmark.
 
+  \vspace{0.4cm}
+
   The Cyclus team has implemented one such option in Python.
+
+  \vspace{0.4cm}
 
   INPRO and NEA once-through benchmarks were translated, run in Cyclus, and
   compared with output, our previous benchmarking exercises.
