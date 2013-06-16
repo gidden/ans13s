@@ -339,7 +339,7 @@
   \end{columns}
 \end{frame}
 
-\begin{frame}[fragile]
+\begin{frame}
   \frametitle{Proposal : INPRO Once Through}
   \begin{figure}
     \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{inpro.eps}
@@ -347,10 +347,29 @@
   \end{figure}
 \end{frame}
 
-\begin{frame}[fragile, label = current]
+\begin{frame}
   \frametitle{Proposal : NEA Once Through}
   \begin{figure}
     \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{nea.eps}
     \caption{A Screenshot of the NEA JSON File.}
+  \end{figure}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Proposal : Translation} 
+  With a common language specification, specific simulators can translate a
+  specified benchmark.
+
+  The Cyclus team has implemented one such option in Python.
+
+  INPRO and NEA once-through benchmarks were translated, run in Cyclus, and
+  compared with output, our previous benchmarking exercises.
+\end{frame}
+
+\begin{frame}[label = current]
+  \frametitle{Proposal : Cyclus Translator}
+  \begin{figure}
+    \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{benchmarks.eps}
+    \caption{A Screenshot of the Cyclus Translator Repository.}
   \end{figure}
 \end{frame}
