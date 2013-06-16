@@ -1,0 +1,114 @@
+% Overview : motivation.tex
+% Explain why this talk is being given.
+
+\begin{frame}[ctb!]
+  \frametitle{Motivation : Benchmarks Needed} 
+  With so many players implementing simulations via various methods, we need 
+  validation and verification (i.e., benchmarks)!
+
+  \vspace{0.4cm}
+
+  First things first: what's makes up a benchmark for FCSs?
+
+  \begin{itemize}
+    \item a scenario
+    \item a set of facilities (and their connections)
+    \item a set of materials
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[ctb!]
+  \frametitle{Motivation : Previous Exercises}
+  A number of exercises have been initiated by the FCS community.
+
+  \vspace{0.4cm}
+
+  Just to name a few:
+  \begin{itemize}
+    \item IAEA/INPRO (15 participants [INPRO nation states])\cite{_international_2011}
+    \item MIT (4 participants) \cite{guerin_benchmark_2009}
+    \item NUWASTE (5 participants) \cite{abkowitz_workshop_2011}
+    \item OECD/NEA (5 participants) \cite{boucher_benchmark_2012}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[ctb!]
+  \frametitle{Motivation : How Benchmarks are Formed}
+  A ``base case'' is considered as the starting point.
+
+  \vspace{0.4cm}
+
+  Some (small) number of advanced fuel cycles are considered as additional cases.
+
+  \vspace{0.4cm}
+
+  An iterative, communal process produces scenario, facility, and material
+  parameters.
+
+  \vspace{0.4cm}
+
+  The agreed-upon parameters are shared among the participants.
+
+  \vspace{0.4cm}
+
+  Results are presented at follow-up meetings or in publications in graph form.
+\end{frame}
+
+\begin{frame}[ctb!]
+  \frametitle{Motivation : Reproducibility}
+  FCS benchmarks are a V\&V exercise. They require hard data and complete 
+  information.
+
+  \vspace{0.4cm}
+
+  Many benchmarks specify a fuel cycle \textit{template}, but do not fully 
+  specify the required parameters of the fuel cycle.
+
+  \vspace{0.4cm}
+
+  Critically: correctness can be (minimally) confirmed by matching an under
+  specified benchmark, but incorrectness can not be confirmed by failing to
+  match an under specified benchmark.
+\end{frame}
+
+\begin{frame}[ctb!]
+  \frametitle{Motivation : Moving V\&V Exercises Forward}
+  We can learn from other nuclear computational science communities.
+  \begin{itemize}
+    \item nuclear data \cite{mattoon_generalized_2012}
+    \item nuclear transport / criticality
+  \end{itemize}
+
+  An ideal solution is a community-consensus standard way to describe benchmarks.
+
+  \vspace{0.4cm}
+
+  Fuel cycles are difficult to describe. We need a common language or structure
+  to talk about what exactly a fuel cycle is.
+
+  \vspace{0.4cm}
+
+  Having a better way to discuss/describe a fuel cycle allows us to fill in
+  missing holes in any specified benchmark.
+\end{frame}
+
+\begin{frame}[ctb!]
+  \frametitle{Motivation : Goals of FCS V\&V Evolution}
+  What goals should a valid solution strive towards?
+  \begin{enumerate}
+    \item A solution should be complete; it should be valid for any current or
+      future participant
+    \item A solution should be \textit{easy} to work with, either through
+      automation or by-hand comprehension.
+    \item A solution should be \textit{public and open}, both regarding input
+      and output data.
+  \end{enumerate}
+
+  Any proposal needs buy-in from the FCS, specifically regarding:
+  \begin{enumerate}
+    \item what parameters belong in a \textit{full} fuel cycle description
+    \item what are valid metrics to benchmark against
+    \item how should these metrics be aggregated (e.g., by month? by year?; by
+      element? by isotope?)
+  \end{enumerate}
+\end{frame}
