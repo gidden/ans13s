@@ -6,7 +6,8 @@
 
   \begin{enumerate}
     \item development of a proof of concept specification language for dynamic
-      fuel cycles
+      fuel cycles (inspired by the Nuclear Data Community's GND effort
+      \cite{mattoon_generalized_2012})
     \item implementation of the specification for (simple) once-through base
       cases in both the INPRO and NEA/OECD benchmarks
     \item translation of the implementation into a Cyclus input file, and
@@ -21,7 +22,7 @@
 
   \begin{itemize}
     \item this is a suggestion, not a complete solution
-    \item there are definitely things missing from a full specification
+    \item there is room to grow this into a full specification
     \item we see this as a starting point to begin a more community-wide
       discussion on how to address this issue
   \end{itemize}
@@ -30,7 +31,7 @@
 \begin{frame}[fragile]
   \frametitle{Proposal : Basic Language Structure}
   \begin{columns}[t]
-    \column{.5\textwidth}\begin{block}{Specification}\begin{small}\begin{verbatim}
+    \column{.5\textwidth}\begin{block}{Hierarchy Specification}\begin{small}\begin{verbatim}
 * materials
   * aMaterial
     * metadata
@@ -73,7 +74,7 @@
 \begin{frame}[fragile]
   \frametitle{Proposal : Materials}
   \begin{columns}[t]
-    \column{.5\textwidth}\begin{block}{Specification}\begin{small}\begin{verbatim}
+    \column{.5\textwidth}\begin{block}{Hierarchy Specification}\begin{small}\begin{verbatim}
 * materials
   * name1
     * metadata (optional)
@@ -128,7 +129,7 @@
 \begin{frame}[fragile]
   \frametitle{Proposal : Facilities - Reactor}
   \begin{columns}[t]
-    \column{.5\textwidth}\begin{block}{Specification}\begin{footnotesize}\begin{semiverbatim}
+    \column{.5\textwidth}\begin{block}{Hierarchy Specification}\begin{footnotesize}\begin{semiverbatim}
 \only<1>{* name
 * metadata (optional)
   * type: reactor
@@ -203,7 +204,7 @@
 \begin{frame}[fragile]
   \frametitle{Proposal : Facilities - Repositories}
   \begin{columns}[t]
-    \column{.5\textwidth}\begin{block}{Specification}\begin{small}\begin{semiverbatim}
+    \column{.5\textwidth}\begin{block}{Hierarchy Specification}\begin{small}\begin{semiverbatim}
 * name
   * metadata (optional)
     * type: repository
@@ -237,7 +238,7 @@
 \begin{frame}[fragile]
   \frametitle{Proposal : Facilities - Enrichment}
   \begin{columns}[t]
-    \column{.5\textwidth}\begin{block}{Specification}\begin{footnotesize}\begin{semiverbatim}
+    \column{.5\textwidth}\begin{block}{Hierarchy Specification}\begin{footnotesize}\begin{semiverbatim}
 * name
   * metadata (optional)
     * type: enrichment
@@ -279,7 +280,7 @@
 \begin{frame}[fragile]
   \frametitle{Proposal : Fuel Cycle Description}
   \begin{columns}[t]
-    \column{.5\textwidth}\begin{block}{Specification}\begin{small}\begin{semiverbatim}
+    \column{.5\textwidth}\begin{block}{Hierarchy Specification}\begin{small}\begin{semiverbatim}
 \only<1>{* fuelCycle
   * metadata (optional)
   * attributes
@@ -367,8 +368,8 @@
 
   \vspace{0.4cm}
 
-  INPRO and NEA once-through benchmarks were translated, run in Cyclus, and
-  compared with output, our previous benchmarking exercises.
+  INPRO and NEA once-through benchmarks were translated, simulated with Cyclus,
+  and compared with supplied benchmark output.
 \end{frame}
 
 \begin{frame}
